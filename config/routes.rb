@@ -1,11 +1,8 @@
 Shipit::Application.routes.draw do
-  root :to => 'home#index'
+  root :to => 'current_goals#show'
 
-  namespace :home do
-    get   :index
-    post  :reset
-    post  :commit
-    post  :shipped
+  resource :current_goal do
+    post :reset
   end
 
   resources :people

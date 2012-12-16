@@ -1,7 +1,7 @@
 <div class="column">
   <h1>Today, I want to ship...</h1>
 
-  <%= form_tag("/home/shipped", :method => :post) do %>
+  <%= form_for @goal, url: current_goal_path do %>
     <p class="lead"><%= @goal.description %></p>
     <div class="row">
       <div class="span3">

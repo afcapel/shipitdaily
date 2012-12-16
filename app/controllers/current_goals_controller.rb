@@ -1,5 +1,6 @@
-class HomeController < ApplicationController
-  def index
+class CurrentGoalsController < ApplicationController
+
+  def show
     @goal  = current_user.goals.current
 
     if @goal.completed?
@@ -7,16 +8,16 @@ class HomeController < ApplicationController
     elsif @goal.planned?
       render "track_goal"
     else
-      render "index"
+      render "show"
     end
   end
 
-  def commit
+  def create
     current_user.goals.plan(params[:goal])
-    redirect_to "/"
+    redirect_to root_path
   end
 
-  def shipped
+  def update
     goal = current_user.goals.current
 
     if params[:commit][/shipped/]
@@ -25,12 +26,12 @@ class HomeController < ApplicationController
       goal.abandon
     end
 
-    redirect_to "/"
+    redirect_to root_path
   end
 
   def reset
     current_user.goals.create(:state => "undefined")
 
-    redirect_to "/"
+    redirect_to root_path
   end
 end
